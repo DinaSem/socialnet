@@ -1,9 +1,21 @@
-.header{
-    grid-area: h;
-    background-color: olivedrab;
+.dialogs {
+    display: flex;
+padding: 20px;
 }
-.header img{
-    width: 20px;
-    border-radius:  15px 10px 10px 10px;
-    padding-top: 20px ;
+
+.dialogsItems {
+padding: 10px;
+}
+
+.dialog {
+
+}
+
+.messages {
+    margin-left: 120px;
+    padding: 10px;
+}
+
+.message {
+
 }
