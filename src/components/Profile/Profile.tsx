@@ -4,7 +4,7 @@ import MyPosts from "./MyPosts/MyPosts";
 
 function Profile() {
     return (
-        <div className={s.content}>
+        <div>
             <div>
                 <img src="https://wallpaperset.com/w/full/f/3/3/476097.jpg" alt=""/>
             </div>
