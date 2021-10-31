@@ -4,7 +4,7 @@ import s from './Navbar.module.css'
 
 
 
-function Navbar() {
+function Navbar(props:any) {
     return (
             <nav className={s.nav}>
                 <div className={s.item}>
