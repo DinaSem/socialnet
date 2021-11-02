@@ -2,9 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './Navbar.module.css'
 
+export type NavbarTypes={
+    to:string
+}
 
-
-function Navbar(props:any) {
+function Navbar(props:NavbarTypes) {
     return (
             <nav className={s.nav}>
                 <div className={s.item}>
