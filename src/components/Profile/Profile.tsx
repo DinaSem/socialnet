@@ -1,14 +1,22 @@
 import React from 'react';
+import state, {ProfilePageType} from '../../redux/state';
+import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css'
-import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo";
 
 
-function Profile() {
+type ProfileType={
+    profilePage:ProfilePageType
+}
+
+function Profile(props: ProfileType) {
+
+
     return (
         <div>
-<ProfileInfo/>
-            <MyPosts/>
+            <ProfileInfo/>
+            <MyPosts posts={props.profilePage.posts}/>
         </div>)
 }
-    export default Profile;
+
+export default Profile;
