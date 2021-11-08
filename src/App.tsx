@@ -8,13 +8,14 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import state, {
     DialogsType,
     MessagesType,
-    PostsType, RootStateType,
+    PostsType, RootStateType, addPost
 
 } from "./redux/state";
 
 
 type AppTypes = {
-    state:RootStateType
+    state: RootStateType
+    addPost:(text:string) =>void
 }
 
 function App(props: AppTypes) {
@@ -27,8 +28,9 @@ function App(props: AppTypes) {
                 <Navbar to={''}/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <Dialogs dialogsPage={props.state.dialogsPage} />}/>
-                    <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}/>}/>
+                           render={() => <Dialogs dialogsPage={props.state.dialogsPage}/>}/>
+                    <Route path='/profile'
+                           render={() => <Profile addPost={props.addPost} profilePage={props.state.profilePage}/>}/>
 
                 </div>
             </div>

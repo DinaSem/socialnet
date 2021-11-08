@@ -1,24 +1,29 @@
-import React, { RefObject } from 'react';
-import state, {PostsType, ProfilePageType} from '../../../redux/state';
+import React, {RefObject} from 'react';
+import state, {addPost, PostsType, ProfilePageType} from '../../../redux/state';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 
 
+type MyPostsType = {
 
-type MyPostsType={
+    posts: Array<PostsType>
 
-    posts:Array<PostsType>
-    AddPostHandler:()=>void
+    addPost:(text: string) =>void
+
 }
 
 function MyPosts(props: MyPostsType) {
 
     let postsElements = props.posts.map(m =>
-        <Post message={m.message} likesCount={m.likesCount}/>)
+        <Post key={m.id} message={m.message} likesCount={m.likesCount}/>)
     let newPostElement = React.createRef<HTMLTextAreaElement>();
-const AddPostHandler =() => {
- let text = newPostElement.current?.value
-}
+    const AddPostHandler = () => {
+        if (newPostElement.current){
+            let text = newPostElement.current.value;
+            props.addPost(text)
+        }
+        }
+
     return (
         <div className={s.postsBlog}>
             <h3>My Posts</h3>
