@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import state, { RootStateType} from "./redux/state";
+import state, {RootStateType, updateNewPostText} from "./redux/state";
 import {addPost} from "./redux/state";
 import {BrowserRouter} from "react-router-dom";
 
 export const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App state={state} addPost={addPost}/>
+            <App state={state} addPost={addPost} updateNewPostText={updateNewPostText} newPostText={state.profilePage.newPostText}/>
         </BrowserRouter>,
         document.getElementById('root')
     );

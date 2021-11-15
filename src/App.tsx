@@ -8,14 +8,16 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import state, {
     DialogsType,
     MessagesType,
-    PostsType, RootStateType, addPost
+    PostsType, RootStateType, addPost, updateNewPostText
 
 } from "./redux/state";
 
 
 type AppTypes = {
     state: RootStateType
-    addPost:(text:string) =>void
+    addPost:() =>void
+    updateNewPostText:(newText: string)=>void
+    newPostText:string
 }
 
 function App(props: AppTypes) {
@@ -30,7 +32,7 @@ function App(props: AppTypes) {
                     <Route path='/dialogs'
                            render={() => <Dialogs dialogsPage={props.state.dialogsPage}/>}/>
                     <Route path='/profile'
-                           render={() => <Profile addPost={props.addPost} profilePage={props.state.profilePage}/>}/>
+                           render={() => <Profile addPost={props.addPost} profilePage={props.state.profilePage} updateNewPostText={updateNewPostText} newPostText={props.state.profilePage.newPostText} />}/>
 
                 </div>
             </div>
