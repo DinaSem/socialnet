@@ -1,34 +1,34 @@
 import React, {ChangeEvent, RefObject} from 'react';
-import state, {addPost, PostsType, ProfilePageType} from '../../../redux/state';
+import state, {ActionsType, PostsType, ProfilePageType} from '../../../redux/state';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
+import {type} from "os";
 
 
 type MyPostsType = {
 
     posts: Array<PostsType>
-    addPost:() =>void
     newPostText:string
-    updateNewPostText:(newText: string)=>void
+    dispatch:(action:ActionsType)=>void
 
 }
 
-function MyPosts(props: MyPostsType) {
+function MyPosts({dispatch,...props}:MyPostsType) {
 
     let postsElements = props.posts.map(m =>
         <Post key={m.id} message={m.message} likesCount={m.likesCount}/>)
 
     const AddPostHandler = () => {
-            props.addPost()
+            dispatch({type:'ADD-POST'})
         }
 const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>)=>{
-         props.updateNewPostText(e.currentTarget.value);
+      dispatch({type: 'UPDATE-NEW-POST-TEXT',newText: e.currentTarget.value});
 }
     return (
         <div className={s.postsBlog}>
             <h3>My Posts</h3>
             <div>
-                <div><textarea onChange={onPostChange} value={props.newPostText} ></textarea></div>
+                <div><textarea onChange={onPostChange} value={props.newPostText} /></div>
 
                 <div>
                     <button onClick={AddPostHandler}>Add post</button>
@@ -42,3 +42,7 @@ const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>)=>{
 }
 
 export default MyPosts;
+
+function newPostText(type: () => string, arg1: string, value: string, newPostText: any) {
+    throw new Error('Function not implemented.');
+}
