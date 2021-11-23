@@ -3,15 +3,17 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import ReactDOM from 'react-dom';
-import store, {RootStateType, storeType} from "./redux/state";
-
-
+import store, {RootStateType} from "./redux/state";
 
 
 let rerenderEntireTree = (state:RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
-            <App store={state} dispatch={store.dispatch.bind(store)} newPostText={store._state.profilePage.newPostText}/>
+            <App
+                store={store}
+                dispatch={store.dispatch.bind(store)}
+                newPostText={store._state.profilePage.newPostText}
+            />
         </BrowserRouter>,
         document.getElementById('root')
     );
