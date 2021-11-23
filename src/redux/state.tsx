@@ -1,4 +1,6 @@
 import {ChangeEvent} from "react";
+import profileReducer, { addPostActionCreator, updateNewPostTextActionCreator } from "./profile-reducer";
+import dialogsReducer, { sensMessageCreator, updateNewMessageBodyCreator } from "./dialogs-reducer";
 
 export type PostsType = {
     id: number
@@ -45,10 +47,6 @@ export type ActionsType =
     | sensMessageCreatorType
     | updateNewMessageBodyCreatorType
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
-const SEND_MESSAGE = 'SEND-MESSAGE'
 
 let store: storeType = {
     _state: {
@@ -83,59 +81,16 @@ let store: storeType = {
         this._callSubscriber = observer//паттерн для "подписки" на событие
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost: PostsType = {
-                id: 4,
-                message: this._state.profilePage.newPostText,
-                likesCount: 37
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            debugger
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogsPage.newMessageBody = action.body;
-            this._callSubscriber(this._state)
-        } else if (action.type === SEND_MESSAGE) {
-            let body = {
-                id: 4,
-                message: this._state.dialogsPage.newMessageBody
-            }
-            this._state.dialogsPage.messages.push(body)
-            this._state.dialogsPage.newMessageBody = '';
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage,action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage,action);
+        this._callSubscriber(this._state)
     }
 }
 
-export const addPostActionCreator = () => {
-    return {
-        type: ADD_POST
-    } as const
-}
-export const updateNewPostTextActionCreator = (newText: string) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: newText
-    } as const
-}
-export const sensMessageCreator = () => {
-    return {
-        type: SEND_MESSAGE
-    } as const
-}
-export const updateNewMessageBodyCreator = (body: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        body: body
-    } as const
-}
+
+
 
 
 export default store;
-
 
 
