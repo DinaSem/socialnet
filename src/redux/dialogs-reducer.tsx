@@ -1,10 +1,37 @@
-import store, {ActionsType, DialogsPageType} from "./state";
+import  {ActionsType} from "./store";
 
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
 const SEND_MESSAGE = 'SEND-MESSAGE'
 
- const dialogsReducer = (state: DialogsPageType, action: ActionsType) => {
+
+export type DialogsType = {
+    id: number
+    name: string
+}
+export type MessagesType = {
+    id: number
+    message: string
+}
+
+let initialState = {
+    messages: [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'Hello'},
+        {id: 3, message: 'OK'},
+    ] ,
+    dialogs: [
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Alex'},
+        {id: 3, name: 'Dina'},
+    ],
+    newMessageBody: '',
+}
+
+export type initialStateDialogsTypes = typeof initialState
+
+
+ const dialogsReducer = (state: initialStateDialogsTypes = initialState, action: ActionsType): initialStateDialogsTypes => {
 
   if (action.type === UPDATE_NEW_MESSAGE_BODY) {
     state.newMessageBody = action.body;
@@ -17,8 +44,7 @@ const SEND_MESSAGE = 'SEND-MESSAGE'
     state.messages.push(body)
     state.newMessageBody = '';
   }
-
-  return state
+      return state
 }
 
 export const sensMessageCreator = () => {

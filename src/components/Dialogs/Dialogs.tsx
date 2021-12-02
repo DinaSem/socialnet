@@ -1,15 +1,15 @@
 import React, {ChangeEvent} from 'react';
-import {NavLink} from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem';
 import s from './Dialogs.module.css'
 import Message from './Message/Message';
-import state, {ActionsType, DialogsPageType} from "../../redux/state";
-import { sensMessageCreator, updateNewMessageBodyCreator } from '../../redux/dialogs-reducer';
+import {DialogsContainerType} from "./DialogsContainer";
+import {initialStateDialogsTypes} from "../../redux/dialogs-reducer";
 
 
 type DialogsType = {
-    dialogsPage: DialogsPageType
-    dispatch: (action: ActionsType) => void
+    dialogsPage: initialStateDialogsTypes
+    sendMessage: () => void
+    updateNewMessageBody: (text: string) => void
 }
 
 function Dialogs(props: DialogsType) {
@@ -19,12 +19,11 @@ function Dialogs(props: DialogsType) {
     let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
     let newMessagesBody = props.dialogsPage.newMessageBody;
     const onSendMessageHandler = () => {
-        props.dispatch(sensMessageCreator())
+        props.sendMessage()
     }
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = e.currentTarget.value
-        let action = updateNewMessageBodyCreator(body)
-        props.dispatch(action);
+    const onNewMessageChange = (text: string) => {
+        props.updateNewMessageBody(text)
+
     }
     return (
         <div className={s.dialogs + ' ' + s.active}>
@@ -37,12 +36,12 @@ function Dialogs(props: DialogsType) {
                     <div>
                         <textarea value={newMessagesBody}
                                    placeholder={'Введите сообщение'}
-                                   onChange={onNewMessageChange}>
+                                   onChange={(e) => onNewMessageChange(e.currentTarget.value)}>
 
                     </textarea>
                     </div>
                     <div>
-                        <button onClick={onSendMessageHandler}>Send</button>
+                        <button onClick={() => onSendMessageHandler()}>Send</button>
                     </div>
                 </div>
             </div>
