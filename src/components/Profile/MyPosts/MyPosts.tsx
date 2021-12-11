@@ -26,7 +26,6 @@ function MyPosts(props: MyPostContainerType) {
         props.addPost();
     }
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        debugger
         props.updateNewPostText(e.currentTarget.value)
     }
     return (

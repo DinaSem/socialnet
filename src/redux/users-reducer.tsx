@@ -1,59 +1,78 @@
-import store, {ActionsType} from "./store";
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const ADD_USER = 'ADD_USER'
 
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-
-export type PostsType = {
+export type UsersType = {
     id: number
-    message: string
-    likesCount: number
+    photoUrl: string
+    followed: boolean
+    fullname: string
+    status: string
+    location: LocationType
 }
-export type ProfilePageType = {
-    posts: Array<PostsType>
-    newPostText: string
+export type LocationType = {
+    city: string,
+    country: string
 }
+
 
 let initialState = {
-    posts: [
-        {id: 1, message: 'Hi, how are you?', likesCount: 10},
-        {id: 2, message: 'Как же круто', likesCount: 22},
-        {id: 3, message: 'Уря-уря', likesCount: 30},
+    users: [
+        {id: 1, photoUrl: 'https://a.deviantart.net/avatars/a/e/aemmy.png?4', followed: true, fullname: 'Dina', status: 'I am a boss', location: {city: 'Moscow', country: 'Russia'}},
+        {
+            id: 2,
+            photoUrl: 'https://a.deviantart.net/avatars/a/e/aemmy.png?4',
+            followed: false,
+            fullname: 'Dmitry',
+            status: 'React guru',
+            location: {city: 'Minsk', country: 'Belarus'}
+        },
+        {
+            id: 3,
+            photoUrl: 'https://a.deviantart.net/avatars/a/e/aemmy.png?4',
+            followed: true,
+            fullname: 'Alex',
+            status: 'I like beer',
+            location: {city: 'Berlin', country: 'Germany'}
+        },
     ],
     newPostText: ''
 }
-export type initialStateTypes = typeof initialState
+export type initialUsersStateTypes = typeof initialState
 
-const profileReducer = (state: initialStateTypes = initialState, action: ActionsType) => {
+export const usersReducer = (state: initialUsersStateTypes = initialState, action: GeneralType):initialUsersStateTypes => {
     switch (action.type) {
-        case ADD_POST: {
-            let newPost: PostsType = {
-                id: 4,
-                message: state.newPostText,
-                likesCount: 37
-            }
-            let newstate = {...state};
-            state.posts = [...state.posts];
-            newstate.posts.push(newPost);
-            newstate.newPostText = '';
-            return newstate;
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {...state,newPostText: action.newText}
-        }
+        case FOLLOW:
+            return {...state, users: state.users.map(m => m.id === action.userId ? {...m, followed: true} : m)}
+        case UNFOLLOW:
+            return {...state, users: state.users.map(m => m.id === action.userId ? {...m, followed: false} : m)}
+        case ADD_USER:
+            return {...state, users: [...state.users, ...action.users]}
         default:
             return state;
     }
 }
-    export const addPostActionCreator = () => {
-        return {
-            type: ADD_POST
-        } as const
-    }
-    export const updateNewPostTextActionCreator = (newText: string) => {
-        return {
-            type: UPDATE_NEW_POST_TEXT,
-            newText: newText
-        } as const
-    }
-    export default profileReducer;
+
+export type GeneralType = followACType | unfollowACType | adduserType
+export  type followACType = ReturnType<typeof followAC>
+export type unfollowACType = ReturnType<typeof unfollowAC>
+export type adduserType = ReturnType<typeof adduserAC>
+
+export const followAC = (userId: number) => {
+    return {
+        type: FOLLOW, userId
+    } as const
+}
+export const unfollowAC = (userId: number) => {
+    return {
+        type: UNFOLLOW, userId
+    } as const
+}
+export const adduserAC = (users: UsersType[]) => {
+    return {
+        type: ADD_USER, users
+    } as const
+}
+
+export default usersReducer;
