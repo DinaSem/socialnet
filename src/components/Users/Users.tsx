@@ -1,18 +1,23 @@
 import React from 'react';
-import usersReducer, {initialUsersStateTypes, UsersType} from "../../redux/users-reducer";
 import s from './Users.module.css'
 import {UsersContainerType} from "./UsersContainer";
-
+import axios from 'axios'
+import userPhoto from './user.png'
 
 
 export const Users = (props: UsersContainerType) => {
+if(props.users.length===0){
+    axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
+        props.addusers(response.data.items)
+    })
 
+}
     return (
         <div className={s.wrapper}>
             {props.users.map(m => <div key={m.id}>
        <span>
            <div className={s.imgwrapper}>
-               <img className={s.ava} src={m.photoUrl} alt=""/>
+               <img className={s.ava} src={m.photos.small !== null ? m.photos.small : userPhoto} alt=""/>
            </div>
            <div>
                {m.followed
@@ -22,13 +27,13 @@ export const Users = (props: UsersContainerType) => {
            </div>
        </span>
                     <span>
-                            <div>{m.fullname}</div>
+                            <div>{m.name}</div>
                             <div>{m.status}</div>
                             </span>
 
                     <span>
-                            <div>{m.location.country}</div>
-                            <div>{m.location.city}</div>
+                            <div>{'m.location.country'}</div>
+                            <div>{'m.location.city'}</div>
                         </span>
                 </div>
             )}
