@@ -14,9 +14,8 @@ type PropsType = {
 
 class UsersC extends React.Component<PropsType>{
 
-constructor(props:any) {
-    super(props);
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
+componentDidMount() {
+    axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
             this.props.addusers(response.data.items)
         })
 }
