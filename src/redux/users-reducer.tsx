@@ -1,7 +1,8 @@
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const ADD_USER = 'ADD_USER'
-
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
 
 export type UsersType = {
     name: string
@@ -23,11 +24,17 @@ export type LocationType = {
 
 export type initialUsersStateTypes = {
     users: UsersType[];
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 
 let initialState: initialUsersStateTypes = {
-    users: []
+    users: [],
+    pageSize:5,
+    totalUsersCount:0,
+    currentPage:1
 }
 
 export const usersReducer = (state = initialState, action: GeneralType):initialUsersStateTypes => {
@@ -37,16 +44,22 @@ export const usersReducer = (state = initialState, action: GeneralType):initialU
         case UNFOLLOW:
             return {...state, users: state.users.map(m => m.id === action.userId ? {...m, followed: false} : m)}
         case ADD_USER:
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
+        case SET_CURRENT_PAGE:
+            return {...state, currentPage: action.currentPage}
+        case SET_TOTAL_USERS_COUNT:
+            return {...state, totalUsersCount: action.count}
         default:
             return state;
     }
 }
 
-export type GeneralType = followACType | unfollowACType | adduserType
+export type GeneralType = followACType | unfollowACType | adduserType|setCurrentPageType|setTotalUserCountACType
 export  type followACType = ReturnType<typeof followAC>
 export type unfollowACType = ReturnType<typeof unfollowAC>
 export type adduserType = ReturnType<typeof adduserAC>
+export type setCurrentPageType = ReturnType<typeof setCurrentPageAC>
+export type setTotalUserCountACType = ReturnType<typeof setTotalUserCountAC>
 
 export const followAC = (userId: string) => {
     return {
@@ -61,6 +74,16 @@ export const unfollowAC = (userId: string) => {
 export const adduserAC = (users: UsersType[]) => {
     return {
         type: ADD_USER, users
+    } as const
+}
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: SET_CURRENT_PAGE, currentPage
+    } as const
+}
+export const setTotalUserCountAC = (totalUsersCount:number) => {
+    return {
+        type: SET_TOTAL_USERS_COUNT, count:totalUsersCount
     } as const
 }
 

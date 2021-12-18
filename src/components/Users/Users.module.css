@@ -8,3 +8,7 @@
  .wrapper{
      margin: 10px;
  }
+ .selectedPage{
+     font-weight: bold;
+     font-size: 20px;
+ }

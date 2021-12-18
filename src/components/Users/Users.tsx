@@ -3,18 +3,34 @@ import s from './Users.module.css'
 import {UsersContainerType} from "./UsersContainer";
 import axios from 'axios'
 import userPhoto from './user.png'
+import {UsersType} from "../../redux/users-reducer";
 
-export const Users = (props: UsersContainerType) => {
-let addUsers = ()=>{
-    if(props.users.length===0){
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
-            props.addusers(response.data.items)
-        })
-
-    }
+export type PropsType={
+    users:Array<UsersType>
+    follow:(userId:string)=>void
+    unfollow:(userId:string)=>void
+    pageSize:number
+    totalUsersCount:number
+    currentPage:number
+    onPageChanged:(pageNumber: number)=>void
 }
-    return (
+export const Users = (props:PropsType)=>{
+
+    let pageCount = props.totalUsersCount/props.pageSize
+
+    let pages = []
+    for (let i = 0; i <= pageCount; i++) {
+        pages.push(i)
+    }
+    return(
         <div className={s.wrapper}>
+            <div>
+                {pages.map(p => {
+                    // @ts-ignore
+                    return <span className={props.currentPage === p && s.selectedPage} onClick={(e)=>
+                    {props.onPageChanged(p) }}>{p}</span>
+                })}
+            </div>
             {props.users.map(m => <div key={m.id}>
        <span>
            <div className={s.imgwrapper}>
@@ -39,5 +55,7 @@ let addUsers = ()=>{
                 </div>
             )}
         </div>
+
     )
+
 }
