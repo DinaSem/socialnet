@@ -15,12 +15,12 @@ type AppTypes = {
     // updateNewPostText: (newText: string) => void
     //newPostText: string
     //store: storeType
-   //dispatch: (action: ActionsType) => void
+    //dispatch: (action: ActionsType) => void
 }
 
 function App(props: AppTypes) {
 
-/*    const state = props.store.getState();*/
+    /*    const state = props.store.getState();*/
 
     return (
         <BrowserRouter>
@@ -29,11 +29,11 @@ function App(props: AppTypes) {
                 <Navbar to={''}/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <DialogsContainer />}/>
+                           render={() => <DialogsContainer/>}/>
                     <Route path='/profile'
                            render={() => <Profile/>}/>
                     <Route path='/users'
-                           render={() => <UsersContainer />}/>
+                           render={() => <UsersContainer/>}/>
 
                 </div>
             </div>
