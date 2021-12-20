@@ -1,5 +1,5 @@
 
-import profileReducer, { addPostActionCreator, updateNewPostTextActionCreator } from "./profile-reducer";
+import profileReducer, {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "./profile-reducer";
 import dialogsReducer, { sensMessageCreator, updateNewMessageBodyCreator } from "./dialogs-reducer";
 
  type PostsType = {
@@ -37,15 +37,10 @@ export type storeType = {
     dispatch: (action: ActionsType) => void
 }
 
-export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostTextType = ReturnType<typeof updateNewPostTextActionCreator>
+
 export type sensMessageCreatorType = ReturnType<typeof sensMessageCreator>
 export type updateNewMessageBodyCreatorType = ReturnType<typeof updateNewMessageBodyCreator>
-export type ActionsType =
-    AddPostActionType
-    | UpdateNewPostTextType
-    | sensMessageCreatorType
-    | updateNewMessageBodyCreatorType
+export type ActionsType = sensMessageCreatorType | updateNewMessageBodyCreatorType
 
 
 let store: storeType = {
@@ -81,7 +76,7 @@ let store: storeType = {
         this._callSubscriber = observer//паттерн для "подписки" на событие
     },
     dispatch(action) {
-        this._state.profilePage = profileReducer(this._state.profilePage,action);
+        //this._state.profilePage = profileReducer(this._state.profilePage,action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage,action);
         this._callSubscriber(this._state)
     }
