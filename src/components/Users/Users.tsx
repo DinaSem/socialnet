@@ -1,7 +1,5 @@
 import React from 'react';
 import s from './Users.module.css'
-import {UsersContainerType} from "./UsersContainer";
-import axios from 'axios'
 import userPhoto from './user.png'
 import {UsersType} from "../../redux/users-reducer";
 import { NavLink } from 'react-router-dom';

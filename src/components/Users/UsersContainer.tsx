@@ -9,11 +9,9 @@ import {
     unfollow,
     UsersType
 } from "../../redux/users-reducer";
-import {Dispatch} from 'redux'
 import {AppStateType} from "../../redux/redux-store";
 import axios from "axios";
-import {Simulate} from "react-dom/test-utils";
-import preloader from '../Users/load.svg'
+
 import {Preloader} from "./Preloader";
 
 export type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType
@@ -42,7 +40,7 @@ class UsersContainer extends React.Component<PropsType> {
                 this.props.toggleIsFetching(false)
                 this.props.addusers(response.data.items)
                 this.props.setTotalUserCount(response.data.totalCount)
-            })
+            });
     }
 
     onPageChanged = (pageNumber: number) => {

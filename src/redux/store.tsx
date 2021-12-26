@@ -1,5 +1,4 @@
 
-import profileReducer, {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "./profile-reducer";
 import dialogsReducer, { sensMessageCreator, updateNewMessageBodyCreator } from "./dialogs-reducer";
 
  type PostsType = {
