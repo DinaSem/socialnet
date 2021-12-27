@@ -36,7 +36,7 @@ class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true);
-        // @ts-ignore
+
         userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.toggleIsFetching(false)
             this.props.addusers(data.items)
@@ -47,7 +47,7 @@ class UsersContainer extends React.Component<PropsType> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true)
-        // @ts-ignore
+
         userAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
             this.props.toggleIsFetching(false)
             this.props.addusers(data.items)
