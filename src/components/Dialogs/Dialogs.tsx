@@ -4,16 +4,17 @@ import s from './Dialogs.module.css'
 import Message from './Message/Message';
 import {DialogsContainerType} from "./DialogsContainer";
 import {initialStateDialogsTypes} from "../../redux/dialogs-reducer";
+import {Redirect} from "react-router-dom";
 
 
 type DialogsType = {
     dialogsPage: initialStateDialogsTypes
     sendMessage: () => void
     updateNewMessageBody: (text: string) => void
+    isAuth:boolean
 }
 
 function Dialogs(props: DialogsType) {
-
 
     let dialogsElements = props.dialogsPage.dialogs.map(m => <DialogItem name={m.name} id={m.id}/>)
     let messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
@@ -23,8 +24,10 @@ function Dialogs(props: DialogsType) {
     }
     const onNewMessageChange = (text: string) => {
         props.updateNewMessageBody(text)
-
     }
+if (!props.isAuth)return  <Redirect to={'/login'}/>
+
+
     return (
         <div className={s.dialogs + ' ' + s.active}>
             <div className={s.dialogsItems}>

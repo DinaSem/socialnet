@@ -11,7 +11,6 @@ import {
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "./Preloader";
-import {userAPI} from "../../api/api";
 
 
 export type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType

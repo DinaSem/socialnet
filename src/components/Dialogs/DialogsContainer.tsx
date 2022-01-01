@@ -40,16 +40,18 @@ function DialogsContainer(props: DialogsType) {
 
 type mapStateToPropsTypes = {
     dialogsPage: initialStateDialogsTypes
+    isAuth:boolean
 }
-type mapDispatchToPropsType = {
+export type mapDispatchToPropsType = {
     updateNewMessageBody: (text: string) => void
     sendMessage: () => void
 }
 export type DialogsContainerType = mapStateToPropsTypes & mapDispatchToPropsType
 
-const mapStateToProps = (state: AppStateType): mapStateToPropsTypes => {
+export const mapStateToProps = (state: AppStateType): mapStateToPropsTypes => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth:state.auth.isAuth
     }
 }
 
