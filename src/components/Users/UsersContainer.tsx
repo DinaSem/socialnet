@@ -11,6 +11,7 @@ import {
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "./Preloader";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 export type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType
@@ -122,7 +123,8 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         },
     }
 }*/
+let WithRedirect = WithAuthRedirect(UsersContainer)
 
 export default connect(mapStateToProps, {
     follow: followSucsess, unfollow: unfollowSucsess, setCurrentPage, toggleIsfollowingProgress, getUsersThunkCreator
-})(UsersContainer)
+})(WithRedirect)
