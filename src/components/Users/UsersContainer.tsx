@@ -91,7 +91,6 @@ export type mapDispatchToPropsType = {
     setTotalUserCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
     toggleIsfollowingProgress: (isFetching: boolean, userId: string) => void
-
 }
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
