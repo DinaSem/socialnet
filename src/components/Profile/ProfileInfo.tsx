@@ -5,6 +5,8 @@ import ProfileStatus from "./ProfileStatus";
 
 type PropsType = {
     profile: null
+    status:string
+    updateStatusThunk:Function
 }
 function ProfileInfo(props:PropsType){
     if (!props.profile){
@@ -17,7 +19,7 @@ function ProfileInfo(props:PropsType){
             {/*</div>*/}
             <div className={s.dicription}>
                 <img src={props.profile}/>
-                <ProfileStatus status={'Hello, my friends'}/>
+                <ProfileStatus status={props.status} updateStatusThunk={props.updateStatusThunk} />
             </div>
         </div>
     )
