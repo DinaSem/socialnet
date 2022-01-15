@@ -1,15 +1,16 @@
 import s from "./ProfileInfo.module.css";
-import React, {ChangeEventHandler} from "react";
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from "react";
 
 
 type PropsType = {
     status:string
     updateStatusThunk:Function
+
 }
 class ProfileStatus extends React.Component<PropsType> {
 
     state = {
-        editMode: false,
+        editMode: true,
         status:this.props.status
     }
     activateEditMode = ()=>{
@@ -23,13 +24,21 @@ class ProfileStatus extends React.Component<PropsType> {
         })
         this.props.updateStatusThunk(this.state.status)
     }
-    onStatusChange = (e:any)=>{// ПОМЕНЯТЬ!!!
+    onStatusChange(e: ChangeEvent<HTMLInputElement>){// ПОМЕНЯТЬ!!!
         this.setState({
-            status:e.currentTarget.value
+            status: e.currentTarget.value
         })
     }
+    componentDidUpdate(prevProps:any, prevState:any) {
 
-render() {
+            if(prevProps.status !==this.props.status){
+                this.setState({
+                    status: this.props.status
+                })
+         }
+     }
+
+    render() {
     return (
         <div>
             {!this.state.editMode &&
