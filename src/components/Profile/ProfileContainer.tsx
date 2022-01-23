@@ -7,7 +7,7 @@ import {
     updateStatusThunk
 } from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import { RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 
@@ -31,7 +31,6 @@ class ProfileContainer extends React.Component<PropsType> {
 
     render() {
 
-        // @ts-ignore
         return (
             <Profile  {...this.props} profile={this.props.profile} status={this.props.status} />
         )
@@ -53,7 +52,7 @@ export type mapDispatchToPropsType = {
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
 
 })
 

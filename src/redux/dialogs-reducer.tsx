@@ -1,7 +1,4 @@
-import {ActionsType} from "./store";
 
-
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
 const SEND_MESSAGE = 'SEND-MESSAGE'
 
 
@@ -25,42 +22,31 @@ let initialState = {
         {id: 2, name: 'Alex'},
         {id: 3, name: 'Dina'},
     ],
-    newMessageBody: '',
 }
 
 export type initialStateDialogsTypes = typeof initialState
 
 
-const dialogsReducer = (state: initialStateDialogsTypes = initialState, action: ActionsType) => {
+const dialogsReducer = (state: initialStateDialogsTypes = initialState, action: GeneralType) => {
 
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:{
-            return {...state, newMessageBody:action.body}
-        }
         case SEND_MESSAGE: {
-            let body = {
-                id: 4,
-                message: state.newMessageBody
+            let body = action.newMessageBody
+            return {
+                ...state,
+                messages: [...state.messages,{id:4,message: body}]
             }
-            let newstate = {...state}
-            newstate.messages = [...state.messages]
-            newstate.messages.push(body)
-            newstate.newMessageBody = '';
-            return newstate
         }
         default:return state;
     }
 }
+type GeneralType = sensMessageCreatorType
+type sensMessageCreatorType = ReturnType<typeof sensMessageCreator>
 
-export const sensMessageCreator = () => {
+
+export const sensMessageCreator = (newMessageBody:string) => {
     return {
-        type: SEND_MESSAGE
-    } as const
-}
-export const updateNewMessageBodyCreator = (body: string) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        body: body
+        type: SEND_MESSAGE,newMessageBody
     } as const
 }
 export default dialogsReducer;
