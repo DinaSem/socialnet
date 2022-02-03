@@ -18,15 +18,15 @@ export type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType
 
 type PropsType = {
     users: Array<UsersType>
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setCurrentPage: (pageNumber: number) => void
-    toggleIsfollowingProgress: (isFetching: boolean, userId: string) => void
+    toggleIsfollowingProgress: (isFetching: boolean, userId: number) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: Array<string>
+    followingInProgress: Array<number>
     getUsersThunkCreator:Function
 }
 
@@ -34,24 +34,11 @@ class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         this.props.getUsersThunkCreator(this.props.currentPage,this.props.pageSize);
-/*        this.props.toggleIsFetching(true);
 
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.addusers(data.items)
-            this.props.setTotalUserCount(data.totalCount)
-        });*/
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.getUsersThunkCreator(pageNumber,this.props.pageSize);
-/*        this.props.setCurrentPage(pageNumber)
-        this.props.toggleIsFetching(true)
-
-        userAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.addusers(data.items)
-        })*/
     }
 
     render() {
@@ -78,16 +65,16 @@ type mapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: Array<string>
+    followingInProgress: Array<number>
 }
 export type mapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     addusers: (users: UsersType[]) => void
     setCurrentPage: (pageNumber: number) => void
     setTotalUserCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
-    toggleIsfollowingProgress: (isFetching: boolean, userId: string) => void
+    toggleIsfollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {

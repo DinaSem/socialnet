@@ -70,7 +70,7 @@ export const setUserProfile = (profile:null) => {
         type: SET_USER_PROFILE, profile
     } as const
 }
-export const getUserProfileThunk = (userId:string)=>(dispatch:Dispatch)=>{
+export const getUserProfileThunk = (userId:number)=>(dispatch:Dispatch)=>{
 userAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data))
         })
@@ -80,7 +80,7 @@ export const setStatus = (status:string)=>{
         type: SET_STATUS, status
     } as const
 }
-export const getStatusThunk = (userId:string)=>(dispatch:Dispatch)=>{
+export const getStatusThunk = (userId:number)=>(dispatch:Dispatch)=>{
     profileAPI.getStatus(userId)
         .then(response => {
         dispatch(setStatus(response.data))

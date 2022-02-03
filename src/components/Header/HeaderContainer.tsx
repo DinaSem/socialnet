@@ -9,7 +9,7 @@ export type PropsType = {
     // email: string
     login: string
     getAuthUserData:Function
-    logout:Function
+    logout:any
     isAuth:boolean
 }
 

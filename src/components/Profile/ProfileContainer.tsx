@@ -11,9 +11,9 @@ import { RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 type PathParamType = {
-    userId: string
-
+    userId: number
 }
+// @ts-ignore
 type PropsType = RouteComponentProps<PathParamType> & OnPropsType
 type OnPropsType = mapStateToPropsType & mapDispatchToPropsType
 
@@ -22,7 +22,7 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = '2';
+            userId = this.props.authorizedUresId;
         }
         this.props.getUserProfileThunk(userId);
         this.props.getStatusThunk(userId)
@@ -42,17 +42,22 @@ class ProfileContainer extends React.Component<PropsType> {
 export type mapStateToPropsType = {
     profile: null
     status: string
+    authorizedUresId:number
+    isAuthUser: boolean
 }
 
 export type mapDispatchToPropsType = {
     getUserProfileThunk: Function
     getStatusThunk: Function
     updateStatusThunk: Function
+
 }
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authorizedUresId: state.auth.userid,
+    isAuthUser: state.auth.isAuth
 
 })
 

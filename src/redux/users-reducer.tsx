@@ -11,7 +11,7 @@ const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 export type UsersType = {
     name: string
-    id: string
+    id: number
     uniqueUrlName: string | null
     photos: {
         small: string | null
@@ -22,10 +22,6 @@ export type UsersType = {
     followed: boolean
 
 }
-// export type LocationType = {
-//     city: string,
-//     country: string
-// }
 
 export type initialUsersStateTypes = {
     users: UsersType[];
@@ -33,7 +29,7 @@ export type initialUsersStateTypes = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: Array<string>
+    followingInProgress: Array<number>
 }
 
 
@@ -86,12 +82,12 @@ export type setTotalUserCountACType = ReturnType<typeof setTotalUserCount>
 export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
 export type toggleIsfollowingProgressType = ReturnType<typeof toggleIsfollowingProgress>
 
-export const followSucsess = (userId: string) => {
+export const followSucsess = (userId: number) => {
     return {
         type: FOLLOW, userId
     } as const
 }
-export const unfollowSucsess = (userId: string) => {
+export const unfollowSucsess = (userId: number) => {
     return {
         type: UNFOLLOW, userId
     } as const
@@ -116,7 +112,7 @@ export const toggleIsFetching = (isFetching: boolean) => {
         type: TOGGLE_IS_FETCHING, isFetching
     } as const
 }
-    export const toggleIsfollowingProgress = (isFetching: boolean,userId: string) => {
+    export const toggleIsfollowingProgress = (isFetching: boolean,userId: number) => {
         return {
             type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching,userId
         } as const
@@ -136,7 +132,7 @@ export const toggleIsFetching = (isFetching: boolean) => {
     }
 }
 
-export const follow = (userId:string) => {
+export const follow = (userId:number) => {
     return (dispatch:Dispatch)=>{
         dispatch(toggleIsfollowingProgress(true,userId))
         userAPI.follow(userId)
@@ -149,7 +145,7 @@ export const follow = (userId:string) => {
     }
 }
 
-export const unfollow = (userId:string) => {
+export const unfollow = (userId:number) => {
     return (dispatch:Dispatch)=>{
         dispatch(toggleIsfollowingProgress(true,userId))
         userAPI.unfollow(userId)

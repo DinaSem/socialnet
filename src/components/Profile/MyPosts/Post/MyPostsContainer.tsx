@@ -6,10 +6,7 @@ import {connect} from "react-redux";
 import {Dispatch} from "redux";
 
 
-// type MyPostsType = {
-//     posts: Array<PostsType>
-//     newPostText: string
-// }
+
 type mapStateToPropsType = {
     posts: Array<PostsType>
     newPostText: string
