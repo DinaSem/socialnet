@@ -15,7 +15,7 @@ function ProfileInfo(props:PropsType){
     return(
         <div>
             <div className={s.dicription}>
-                <img src={props.profile}/>
+                <img src={props.profile} alt={''}/>
                 <ProfileStatus status={props.status} updateStatusThunk={props.updateStatusThunk} />
             </div>
         </div>

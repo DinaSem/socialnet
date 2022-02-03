@@ -3,9 +3,6 @@ import s from './Users.module.css'
 import userPhoto from './user.png'
 import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
-import axios from "axios";
-import {UsersContainerType} from "./UsersContainer";
-import {userAPI} from "../../api/api";
 
 export type PropsType = {
     users: Array<UsersType>
@@ -36,6 +33,7 @@ export const Users = (props: PropsType) => {
                     }}>{p}</span>
                 })}
             </div>
+
             {props.users.map(m => <div key={m.id}>
        <span>
            <div className={s.imgwrapper}>
@@ -46,10 +44,14 @@ export const Users = (props: PropsType) => {
            <div>
                {m.followed
                    ? <button disabled={props.followingInProgress.some(id => id === m.id)}
-                             onClick={() => {props.unfollow(m.id)}}
+                             onClick={() => {
+                                 props.unfollow(m.id)
+                             }}
                    >Unfollow</button>
                    : <button disabled={props.followingInProgress.some(id => id === m.id)}
-                             onClick={() => {props.follow(m.id)}}
+                             onClick={() => {
+                                 props.follow(m.id)
+                             }}
                    >Follow</button>}
            </div>
        </span>

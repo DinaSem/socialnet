@@ -1,11 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Users} from "./Users";
-
 import {
-    addusers,
     followSucsess, getUsersThunkCreator,
-    setCurrentPage, setTotalUserCount, toggleIsFetching, toggleIsfollowingProgress,
+    setCurrentPage, toggleIsfollowingProgress,
     unfollowSucsess,
     UsersType
 } from "../../redux/users-reducer";
@@ -13,8 +11,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "./Preloader";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
-import {getUserProfileThunk} from "../../redux/profile-reducer";
-import {withRouter} from "react-router-dom";
+
 
 
 export type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType

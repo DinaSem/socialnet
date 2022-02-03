@@ -22,10 +22,10 @@ export type UsersType = {
     followed: boolean
 
 }
-export type LocationType = {
-    city: string,
-    country: string
-}
+// export type LocationType = {
+//     city: string,
+//     country: string
+// }
 
 export type initialUsersStateTypes = {
     users: UsersType[];
@@ -63,7 +63,7 @@ export const usersReducer = (state = initialState, action: GeneralType): initial
         case TOGGLE_IS_FOLLOWING_PROGRESS:
             return {...state, followingInProgress: action.isFetching
                     ? [...state.followingInProgress,action.userId]
-                    :state.followingInProgress.filter(id=>id!=action.userId)
+                    :state.followingInProgress.filter(id=>id!==action.userId)
             }
         default:
             return state;
