@@ -1,15 +1,15 @@
 import React from 'react';
 import Header from "./Header";
 import { connect } from 'react-redux';
-import {getAuthUserData} from "../../redux/auth-reducer";
+import {getAuthUserData, logout} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 
 export type PropsType = {
     // userid:number
     // email: string
     login: string
-    //setUserDataAC:(userid:number,email: string,Login: string)=>void
     getAuthUserData:Function
+    logout:Function
     isAuth:boolean
 }
 
@@ -35,4 +35,4 @@ export const mapStateToProps = (state:AppStateType):mapStateToPropsType=>({
     login: state.auth.login,
 
 })
-export default connect(mapStateToProps,{getAuthUserData})(HeaderContainer);
+export default connect(mapStateToProps,{getAuthUserData,logout})(HeaderContainer);

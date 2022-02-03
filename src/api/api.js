@@ -38,8 +38,13 @@ export const profileAPI = {
 
 export const authAPI = {
     me(){
-        return instanse.get(`auth/me`, {
-        })
+        return instanse.get(`auth/me`)
+    },
+    login(email, password, rememberMe = false){
+        return instanse.post(`login/me`, {email, password, rememberMe})
+    },
+    logout(){
+        return instanse.delete(`login/login`)
     }
 }
 
