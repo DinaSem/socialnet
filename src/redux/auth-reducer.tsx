@@ -18,7 +18,7 @@ let initialState: initialUsersStateTypes = {
 
 }
 
-export const authReducer = (state = initialState, action: GeneralType): initialUsersStateTypes => {
+export const authReducer = (state = initialState, action: GeneralAuthType): initialUsersStateTypes => {
     switch (action.type) {
         case SET_USER_DATA:
             return {...state, ...action.payload}
@@ -28,7 +28,7 @@ export const authReducer = (state = initialState, action: GeneralType): initialU
     }
 }
 
-export type GeneralType = setUserDataACType
+export type GeneralAuthType = setUserDataACType
 
 export  type setUserDataACType = ReturnType<typeof setUserDataAC>
 
@@ -38,8 +38,8 @@ export const setUserDataAC = (userid: number, email: string, login: string, isAu
         type: SET_USER_DATA, payload: {userid, email, login, isAuth}
     } as const
 }
-export const getAuthUserData = () => (dispatch: Dispatch<GeneralType>) => {
-    authAPI.me()
+export const getAuthUserData = () => (dispatch: Dispatch<GeneralAuthType>) => {
+    return authAPI.me()
         .then(response => {
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
@@ -59,7 +59,7 @@ export const login = (email:string, password:string, rememberMe:boolean) =>
             }
         });
 }
-export const logout = () => (dispatch: Dispatch<GeneralType>) => {
+export const logout = () => (dispatch: Dispatch<GeneralAuthType>) => {
     authAPI.logout()
         .then(response => {
             if (response.data.resultCode === 0) {

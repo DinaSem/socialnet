@@ -91,6 +91,4 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         follow: followSucsess, unfollow: unfollowSucsess, setCurrentPage, toggleIsfollowingProgress, getUsersThunkCreator
-    }),
-    WithAuthRedirect,
-)(UsersContainer)
+    }))(UsersContainer)
