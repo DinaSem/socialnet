@@ -77,6 +77,16 @@ export type mapDispatchToPropsType = {
     toggleIsfollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
+// let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//     }
+// }
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         users: state.usersPage.users,
