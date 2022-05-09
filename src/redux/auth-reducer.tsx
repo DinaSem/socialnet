@@ -38,34 +38,28 @@ export const setUserDataAC = (userid: number, email: string, login: string, isAu
         type: SET_USER_DATA, payload: {userid, email, login, isAuth}
     } as const
 }
-export const getAuthUserData = () => (dispatch: Dispatch<GeneralAuthType>) => {
-    return authAPI.me()
-        .then(response => {
+export const getAuthUserData = () => async (dispatch: Dispatch<GeneralAuthType>) => {
+    let response = await authAPI.me()
             if (response.data.resultCode === 0) {
                 let {id, email, login} = response.data.data
                 dispatch(setUserDataAC(id, email, login, true))
             }
-        });
 }
 export const login = (email:string, password:string, rememberMe:boolean) =>
-    (dispatch: any) => {
-    authAPI.login(email, password, rememberMe)
-        .then(response => {
+    async(dispatch: any) => {
+        let response = await authAPI.login(email, password, rememberMe)
             if (response.data.resultCode === 0) {
                 dispatch(getAuthUserData())
             }else {
                let message=  response.data.messages.length>0 ? response.data.messages[0] : 'Some error';
                 dispatch(stopSubmit('login', {_error:'Email is wrong'}))
             }
-        });
 }
-export const logout = () => (dispatch: Dispatch<GeneralAuthType>) => {
-    authAPI.logout()
-        .then(response => {
+export const logout = () => async(dispatch: Dispatch<GeneralAuthType>) => {
+    let response = await authAPI.logout()
             if (response.data.resultCode === 0) {
                 dispatch(setUserDataAC(1, '', 'free', false ))
             }
-        });
 }
 
 

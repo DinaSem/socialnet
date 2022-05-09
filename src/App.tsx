@@ -11,7 +11,6 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {InicializeApp} from "./redux/app-reducer";
 import {AppStateType} from "./redux/redux-store";
-import {Preloader} from "./components/Users/Preloader";
 
 export type PropsType = {
     InicializeApp:Function

@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import userPhoto from './user.png'
 import {UsersType} from "../../redux/users-reducer";
 import {NavLink} from 'react-router-dom';
+import {Paginator} from "./Paginator";
 
 export type PropsType = {
     users: Array<UsersType>
@@ -15,31 +16,18 @@ export type PropsType = {
     toggleIsfollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: Array<number>
 }
-export const Users = (props: PropsType) => {
+export const Users = ({currentPage, onPageChanged, totalUsersCount, pageSize, users, ...props}: PropsType) => {
 
-    let pageCount = props.totalUsersCount / props.pageSize
-
-    let pages = []
-    for (let i = 0; i <= pageCount; i++) {
-        pages.push(i)
-    }
     return (
         <div className={s.wrapper}>
-            <div>
-                {pages.map(p => {
-                    // @ts-ignore
-                    return <span className={props.currentPage === p && s.selectedPage} onClick={(e) => {
-                        props.onPageChanged(p)
-                    }}>{p}</span>
-                })}
-            </div>
-
-            {props.users.map(m => <div key={m.id}>
+            <Paginator currentPage={currentPage} onPageChanged={onPageChanged} totalUsersCount={totalUsersCount}
+                       pageSize={pageSize}/>
+            {users.map(m => <div key={m.id}>
        <span>
            <div className={s.imgwrapper}>
                <NavLink to={'/profile/' + m.id}>
-               <img className={s.ava} src={m.photos.small !== null ? m.photos.small : userPhoto} alt=""/>
-</NavLink>
+                    <img className={s.ava} src={m.photos.small !== null ? m.photos.small : userPhoto} alt=""/>
+               </NavLink>
            </div>
            <div>
                {m.followed
