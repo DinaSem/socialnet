@@ -9,7 +9,6 @@ import {
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "./Preloader";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 
@@ -33,12 +32,15 @@ type PropsType = {
 class UsersContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        this.props.getUsersThunkCreator(this.props.currentPage,this.props.pageSize);
+        //деструктуризация
+        const{currentPage, pageSize} = this.props;
+        this.props.getUsersThunkCreator(currentPage,pageSize);
 
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsersThunkCreator(pageNumber,this.props.pageSize);
+        const{ pageSize} = this.props;
+        this.props.getUsersThunkCreator(pageNumber,pageSize);
     }
 
     render() {
@@ -77,16 +79,7 @@ export type mapDispatchToPropsType = {
     toggleIsfollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
-// let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress,
-//     }
-// }
+
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         users: state.usersPage.users,

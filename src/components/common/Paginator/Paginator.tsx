@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Paginator.module.css.module.css'
+import s from './Paginator.module.css'
 
 
 export type PropsType = {

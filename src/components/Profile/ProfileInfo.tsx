@@ -1,7 +1,6 @@
 import s from "./ProfileInfo.module.css";
 import React from "react";
 import {Preloader} from "../Users/Preloader";
-import ProfileStatus from "./ProfileStatus";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 type PropsType = {
@@ -9,15 +8,15 @@ type PropsType = {
     status:string
     updateStatusThunk:Function
 }
-function ProfileInfo(props:PropsType){
-    if (!props.profile){
+function ProfileInfo({profile,status,updateStatusThunk}:PropsType){
+    if (!profile){
         return <Preloader/>
     }
     return(
         <div>
             <div className={s.dicription}>
-                <img src={props.profile} alt={''}/>
-                <ProfileStatusWithHooks status={props.status} updateStatusThunk={props.updateStatusThunk} />
+                <img src={profile} alt={''}/>
+                <ProfileStatusWithHooks status={status} updateStatusThunk={updateStatusThunk} />
             </div>
         </div>
     )
