@@ -1,4 +1,11 @@
- .selectedPage{
+.selectedPage{
      font-weight: bold;
      font-size: 20px;
+ }
+ .pages span{
+     margin: 0 5px;
+ }
+ .noSelectedPage{
+     font-weight: normal;
+
  }
