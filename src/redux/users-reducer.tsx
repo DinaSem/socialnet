@@ -13,11 +13,7 @@ export type UsersType = {
     name: string
     id: number
     uniqueUrlName: string | null
-    photos: {
-        small: string | null
-        large: string | null
-
-    }
+    photos: PhotosType
     status: string | null
     followed: boolean
 
@@ -31,7 +27,18 @@ export type initialUsersStateTypes = {
     isFetching: boolean
     followingInProgress: Array<number>
 }
+export type PhotosType = {
+    small?: null | string
+    large?: null | string
+}
 
+export type UserType = {
+    name: string
+    id: number
+    photos?: PhotosType
+    status: null | string
+    followed: boolean
+}
 
 let initialState: initialUsersStateTypes = {
     users: [],
@@ -126,6 +133,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
 
         let data = await userAPI.getUsers(currentPage, pageSize)
         dispatch(toggleIsFetching(false))
+        // @ts-ignore
         dispatch(addusers(data.items))
         dispatch(setTotalUserCount(data.totalCount))
 

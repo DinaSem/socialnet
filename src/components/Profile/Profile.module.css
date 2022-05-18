@@ -3,3 +3,7 @@
     width: 80%;
     height: 80%;
 }
+.mainPhoto{
+    max-width:200px;
+    border-radius: 50%;
+}
