@@ -1,34 +1,55 @@
 import {Dispatch} from "redux";
 import {profileAPI, userAPI} from "../api/api";
+import {PhotosType} from "./users-reducer";
 
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS'
 
+
+export type ProfileContacts = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+
+export type ProfileDataType = {
+    posts: Array<PostsType>
+    newPostText: string
+    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ProfileContacts
+    photos: PhotosType
+}
 export type PostsType = {
     id: number
     message: string
     likesCount: number
 }
-export type ProfilePageType = {
-    posts: Array<PostsType>
-    newPostText: string
 
-}
-
-let initialState = {
+const initialState = {
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCount: 10},
         {id: 2, message: 'Как же круто', likesCount: 22},
         {id: 3, message: 'Уря-уря', likesCount: 30},
     ],
-    profile: null,
-    status: ''
+    profile: null as ProfileDataType | null,
+    status: ""
 }
+
+
 export type initialStateTypes = typeof initialState
 
-const profileReducer = (state: initialStateTypes = initialState, action: ActionsType) => {
+const profileReducer = (state: initialStateTypes = initialState, action: ActionsType): initialStateTypes => {
     switch (action.type) {
         case ADD_POST: {
             let newPost: PostsType = {

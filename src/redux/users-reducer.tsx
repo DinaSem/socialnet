@@ -39,6 +39,22 @@ export type UserType = {
     status: null | string
     followed: boolean
 }
+export type ProfileUserType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+}
 
 let initialState: initialUsersStateTypes = {
     users: [],
