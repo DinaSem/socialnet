@@ -5,6 +5,8 @@ import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from '../Users/user.png'
 import style from "./Profile.module.css";
 import {ProfileDataType} from "../../redux/profile-reducer";
+import {ProfileDataForm} from "./ProfileDataForm";
+import {login} from "../../redux/auth-reducer";
 
 type PropsType = {
     profile: null | ProfileDataType
@@ -12,6 +14,7 @@ type PropsType = {
     updateStatusThunk: Function
     isOwner: boolean
     savePhotoThunk: Function
+
 }
 
 function ProfileInfo({profile, status, updateStatusThunk, isOwner, savePhotoThunk}: PropsType) {
@@ -28,6 +31,9 @@ function ProfileInfo({profile, status, updateStatusThunk, isOwner, savePhotoThun
             savePhotoThunk(e.target.files[0])
         }
     }
+    const onSubmit = (formData: PropsType) => {
+        console.log(formData)
+    }
 
     // @ts-ignore
     return (
@@ -36,10 +42,11 @@ function ProfileInfo({profile, status, updateStatusThunk, isOwner, savePhotoThun
                 <img src={profile.photos.large || userPhoto} alt={'avatar'} className={style.mainPhoto}/>
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
                 {editMode
-                    ? <ProfileDataForm profile={profile}/>
-                    : <ProfileData changeModeHandler={() => {
-                        setEditMode(true)
-                    }} profile={profile} isOwner={isOwner}/>}
+                    ? <ProfileDataForm onSubmit={onSubmit}/>
+                    : <ProfileData
+                      changeModeHandler={() => {setEditMode(true)}}
+                      profile={profile}
+                      isOwner={isOwner}/>}
                 <ProfileStatusWithHooks status={status} updateStatusThunk={updateStatusThunk}/>
             </div>
         </div>
@@ -60,7 +67,7 @@ const ProfileData: FC<ProfileDataPropsType> = ({isOwner, profile, changeModeHand
         </div>}
 
         {profile && <div>
-            <div><b>Full name:</b> {profile.fullName ? 'yes' : 'no'}</div>
+            <div><b>Full name:</b> {profile.fullName}</div>
 
             <div><b>Looking for a job:</b> {profile.lookingForAJob ? 'yes' : 'no'}</div>
             {profile?.lookingForAJob &&
@@ -69,7 +76,7 @@ const ProfileData: FC<ProfileDataPropsType> = ({isOwner, profile, changeModeHand
             </div>
             }
 
-            <div><b>About me:</b> {profile.lookingForAJob ? 'yes' : 'no'}</div>
+            <div><b>About me:</b> {profile.aboutMe}</div>
             {/*<div>*/}
             {/*    <b>Contacts</b> {Object.keys(profile.contacts).map(key => {*/}
             {/*    return <Contact key={key} contactTitle={key} contactValue={profile.contacts(key)}/>*/}
@@ -81,44 +88,9 @@ const ProfileData: FC<ProfileDataPropsType> = ({isOwner, profile, changeModeHand
     </div>
 }
 
-type ProfileDateFirmPropsType = {
-    profile: null | ProfileDataType
-}
-const ProfileDataForm: FC<ProfileDateFirmPropsType> = ({profile}) => {
-    return (
-        <div>
-            {profile && <div>
-                <div>
-                    <div>
-                        <b>Full name:</b> {profile.fullName ? 'yes' : 'no'}
-                    </div>
-
-                    <div>
-                        <b>Looking for a job:</b> {profile.lookingForAJob ? 'yes' : 'no'}
-                    </div>
-                    {profile.lookingForAJob &&
-                    <div>
-                        <b>My professionals skills:</b> {profile.lookingForAJobDescription}
-                    </div>
-                    }
-
-                    <div>
-                        <b>About me:</b> {profile.lookingForAJob ? 'yes' : 'no'}
-                    </div>
-                    {/*<div>*/}
-                    {/*    <b>Contacts</b> {Object.keys(profile.contacts).map(key => {*/}
-                    {/*    return <Contact key={key} contactTitle={key} contactValue={profile.contacts(key)}/>*/}
-                    {/*})}*/}
-                    {/*</div>*/}
-
-                </div>
-            </div>}
-        </div>
-    )
-}
-
 const Contact = (contactTitle: any, contactValue: string) => {
     return <div><b>{contactTitle}:</b>{contactValue}</div>
 }
+
 
 export default ProfileInfo;

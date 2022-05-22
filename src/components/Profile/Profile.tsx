@@ -17,7 +17,7 @@ function Profile(props: PropsType) {
         <div>
 
             <ProfileInfo savePhotoThunk={props.savePhotoThunk} profile={props.profile} status={props.status}
-                         updateStatusThunk={props.updateStatusThunk} isOwner={props.isOwner}/>
+                         updateStatusThunk={props.updateStatusThunk} isOwner={props.isOwner} />
             <MyPostsContainer/>
         </div>)
 }
